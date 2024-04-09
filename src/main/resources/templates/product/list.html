@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+  <body>
+    <main class="row">
+      <div th:each="p : ${items}" class="col-sm-4">
+        <div class="card card-primary text-center">
+          <div class="card-header">
+            <div th:text="${p.name}"></div>
+          </div>
+          <div class="card-body">
+            <a th:href="@{|/product/detail/${p.id}|}">
+              <img th:src="@{|/images/${p.image}|}" alt="" />
+            </a>
+          </div>
+          <div class="card-footer text-end">
+            <b>$[[${p.price}]]</b>
+            <button class="btn btn-outline-success">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
