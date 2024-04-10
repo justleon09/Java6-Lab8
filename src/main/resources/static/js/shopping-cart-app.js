@@ -6,11 +6,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
       var item = this.items.find((item) => item.id == id);
       if (item) {
         item.qty++;
+        alert("Đã thêm sản phẩm");
         this.saveToLocalStorage();
       } else {
         $http.get(`/rest/products/${id}`).then((resp) => {
           resp.data.qty = 1;
           this.items.push(resp.data);
+          alert("Đã thêm sản phẩm");
           this.saveToLocalStorage();
         });
       }
@@ -41,4 +43,12 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     },
   };
   $scope.cart.loadFromLocalStorage();
+
+  $scope.order = {
+    createDate: new Date(),
+    address: "",
+    purchase() {
+      alert("Đặt hàng");
+    },
+  };
 });
