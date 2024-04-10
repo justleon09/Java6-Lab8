@@ -36,4 +36,8 @@ public class OrderService {
 
         return order;
     }
+
+    public Order findById(Long id) {
+        return dao.findById(id).get();
+    }
 }
