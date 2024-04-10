@@ -18,8 +18,8 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/order/list}">Your Orders</a>
           </li>
-          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-            <a class="nav-link" th:href="@{/admin/home/index}">Administration</a>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/home/index}" sec:authorize="hasAuthority('ADMIN')">Administration</a>
           </li>
         </ul>
       </div>
