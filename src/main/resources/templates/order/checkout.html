@@ -2,7 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
   <body>
     <main>
-      <h1>CHECKOUT</h1>
+      <div class="card border-dark mt-4">
+        <div class="card-header fw-bolder text-center">ORDER PURCHASING</div>
+        <div class="card-body">
+          <form class="row">
+            <div class="col-sm-6">
+              <label for="inputEmail4" class="form-label">Purchaser:</label>
+              <input th:text="${#request.remoteUser}" type="email" class="form-control" id="inputEmail4" />
+            </div>
+            <div class="col-sm-6">
+              <label for="inputPassword4" class="form-label">Order Date</label>
+              <input th:text="${order.createDate}" type="date" class="form-control" id="inputPassword4" />
+            </div>
+            <div class="col-sm-12">
+              <label for="exampleFormControlTextarea1" class="form-label">Shipping Address</label>
+              <textarea ng-model="order.address" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-end">
+          <button ng-click="order.purchase()" class="btn btn-outline-success">Purchase</button>
+        </div>
+      </div>
     </main>
   </body>
 </html>
