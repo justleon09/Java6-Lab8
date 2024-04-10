@@ -27,12 +27,12 @@ public class SecurityConfig {
 	CustomUserDetailsService customUserDetailsService;
 	@Autowired
 	CustomOAuth2UserService auth2UserService;
-	
+
 	@Bean
 	BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -40,39 +40,35 @@ public class SecurityConfig {
 		provider.setPasswordEncoder(passwordEncoder());
 		return provider;
 	}
-	
+
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(request ->
-						request.requestMatchers("/security/logoff").authenticated()
+				.authorizeHttpRequests(
+						request -> request.requestMatchers("/security/logoff", "/order/checkout").authenticated()
 								.requestMatchers("/admin/**").hasAuthority("ADMIN")
 								.anyRequest().permitAll())
-				.formLogin(login ->
-						login.loginPage("/security/login/form")
-								.loginProcessingUrl("/security/login")
-								.defaultSuccessUrl("/product/list")
-								.failureUrl("/security/login/form"))
-//								.successHandler(successHandler)
-//								.failureHandler(failureHandler))
-				.rememberMe(remember ->
-						remember.key("abc21412bf1u1ur2v2yf")
-								.tokenValiditySeconds(86400))
-				.oauth2Login(login ->
-						login.loginPage("/security/login/form")
-								.authorizationEndpoint(e -> e.baseUri("/oauth2/authorization"))
-								.redirectionEndpoint(e -> e.baseUri("/login/oauth2/code/*"))
-								.userInfoEndpoint(e -> e.userService(auth2UserService))
-								.defaultSuccessUrl("/product/list")
-								.failureUrl("/security/login/form"))
-//								.successHandler(successHandler)
-//								.failureHandler(failureHandler))
-				.logout(logout ->
-						logout.logoutUrl("/securiry/logoff")
-								.logoutSuccessUrl("/product/list"))
-//								.logoutSuccessHandler(logoutSuccessHander))
-				.exceptionHandling(e ->
-						e.accessDeniedHandler((request, response, accessDeniedException) -> response.sendRedirect("/product/list")))
+				.formLogin(login -> login.loginPage("/security/login/form")
+						.loginProcessingUrl("/security/login")
+						.defaultSuccessUrl("/product/list")
+						.failureUrl("/security/login/form"))
+				// .successHandler(successHandler)
+				// .failureHandler(failureHandler))
+				.rememberMe(remember -> remember.key("abc21412bf1u1ur2v2yf")
+						.tokenValiditySeconds(86400))
+				.oauth2Login(login -> login.loginPage("/security/login/form")
+						.authorizationEndpoint(e -> e.baseUri("/oauth2/authorization"))
+						.redirectionEndpoint(e -> e.baseUri("/login/oauth2/code/*"))
+						.userInfoEndpoint(e -> e.userService(auth2UserService))
+						.defaultSuccessUrl("/product/list")
+						.failureUrl("/security/login/form"))
+				// .successHandler(successHandler)
+				// .failureHandler(failureHandler))
+				.logout(logout -> logout.logoutUrl("/securiry/logoff")
+						.logoutSuccessUrl("/product/list"))
+				// .logoutSuccessHandler(logoutSuccessHander))
+				.exceptionHandling(e -> e.accessDeniedHandler(
+						(request, response, accessDeniedException) -> response.sendRedirect("/product/list")))
 				.authenticationProvider(authenticationProvider());
 		return http.build();
 	}
