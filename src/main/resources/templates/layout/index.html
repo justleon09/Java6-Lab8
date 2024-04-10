@@ -16,7 +16,7 @@
       crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container" ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
       <header class="row"></header>
       <nav class="row">
         <div th:replace="/layout/_menu.html"></div>
@@ -33,11 +33,12 @@
       <footer class="row">
         <div class="panel panel-default" style="margin-top: 20px">
           <div class="col-md-12 panel-heading text-center">
-            <p>FPT Polytechnic &copy; 2017. All rights reserved</p>
+            <p>FPT Polytechnic &copy; 2024. Tứ Ca Teamwork</p>
           </div>
         </div>
       </footer>
       <script src="https://kit.fontawesome.com/129268ae63.js" crossorigin="anonymous"></script>
+      <script src="/js/shopping-cart-app.js"></script>
     </div>
   </body>
 </html>

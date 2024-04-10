@@ -2,7 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
   <body>
     <main>
-      <h1>CART INFO</h1>
+      <div class="card border-dark mt-4">
+        <div class="card-header fw-bolder">---SHOPPING CART---</div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr ng-repeat="item in cart.items" class="align-middle">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>${{item.price}}</td>
+              <td><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" /></td>
+              <td>${{item.qty * item.price}}</td>
+              <td>
+                <button ng-click="cart.remove(item.id)" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-footer text-end">
+          <button ng-click="cart.clear()" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Clear</button>
+          <a th:href="@{/order/checkout}" class="btn btn-outline-success"><i class="fa-solid fa-circle-check"></i> Checkout</a>
+        </div>
+      </div>
     </main>
   </body>
 </html>

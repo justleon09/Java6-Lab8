@@ -4,8 +4,8 @@
       <i class="fa-solid fa-list" style="font-size: 20px"></i>
       <strong>Danh mục</strong>
     </div>
-    <ul class="list-group list-group-flush">
+    <div class="list-group list-group-flush">
       <a th:each="c : ${cates}" th:href="@{|/product/list?cid=${c.id}|}" class="list-group-item">[[${c.name}]]</a>
-    </ul>
+    </div>
   </div>
 </div>
