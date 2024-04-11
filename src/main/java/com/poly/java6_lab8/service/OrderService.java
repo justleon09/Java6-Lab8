@@ -40,4 +40,8 @@ public class OrderService {
     public Order findById(Long id) {
         return dao.findById(id).get();
     }
+
+    public List<Order> findByUsername(String username) {
+        return dao.findByUsername(username);
+    }
 }
