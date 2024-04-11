@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.java6_lab8.service.OrderService;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class OrderController {
@@ -21,7 +21,9 @@ public class OrderController {
     }
 
     @RequestMapping("/order/list")
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        model.addAttribute("orders", orderService.findByUsername(username));
         return "order/list";
     }
 
